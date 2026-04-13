@@ -35,9 +35,9 @@ This proposal aims to enable developers answering those questions.
 
 ## API Design
 
-We will add a `speculations` attribute to the `performance` object, which will hold information about unused preloads, speculation rules navigational prefetches and speculation rules prerenders.
+We will add a `getSpeculations()` method to the `performance` object, which will return an object that holds information about unused preloads, speculation rules navigational prefetches and speculation rules prerenders.
 
-It will have the following shape:
+That object will have the following shape:
 ```
 {
   preloads: [
@@ -66,7 +66,7 @@ It will have the following shape:
 
 ```javascript
 window.addEventListener('pagehide', (event) => {
-  const { preloads, navigations } = performance.speculations;
+  const { preloads, navigations } = performance.getSpeculations();
 
   // Send unused speculation data to analytics endpoint
   fetch('/analytics/unused-speculations', {
