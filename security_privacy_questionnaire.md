@@ -5,14 +5,14 @@
 The feature exposes, **only to the document that initiated the speculations**, information about speculative loads that the same document has already triggered:
 
 - **`preloads` array** (one entry per `<link rel=preload>` initiated by the page, including ones delivered via Early Hints):
-  - `url`: the URL the developer asked the user agent to preload.
+  - `url`: the URL the developer asked the user agent to preload. This is the pre-redirect request URL.
   - `as`: the `as` attribute value (e.g. `"script"`, `"style"`, `"image"`).
   - `crossorigin`: `"none"`, `"anonymous"`, or `"use-credentials"`.
   - `used`: a `DOMHighResTimeStamp` for when the preload was actually consumed by a subsequent fetch, or `null` if it was never consumed.
   - `earlyhint`: a boolean indicating that load was initiated by an early hint.
 - **`navigations` array** (one entry per Speculation Rules candidate the page sent to the browser):
   - `type`: `"prefetch"`, `"prerender"`, or `"prerender-until-script"`.
-  - `url`: the destination URL the page asked the browser to speculate on.
+  - `url`: the destination URL the page asked the browser to speculate on. This is the pre-redirect request URL.
   - `tags`: developer‑supplied tags from the rule, if any.
   - `eagerness`: `"conservative"`, `"moderate"`, `"eager"`, or `"immediate"`.
 - **`navigationDestinationURL`** (USVString or null): the URL of the most recent non-same-document, same-origin outgoing navigation, captured at the time the Navigation API's navigate event fires (i.e. the same point at which NavigationDestination.url becomes observable to script). null if no qualifying navigation has been observed.
