@@ -46,8 +46,8 @@ That object will have the following shape:
     // ...
   ],
   navigations: [
-    { type: 'prefetch', url: '...', tags: '...', eagerness: '...' },
-    { type: 'prerender', url: '...', tags: '...', eagerness: '...' },
+    { type: 'prefetch', url: '...', tags: ['...'], eagerness: '...' },
+    { type: 'prerender', url: '...', tags: ['...'], eagerness: '...' },
     // ...
   ]
 }
@@ -57,7 +57,7 @@ That object will have the following shape:
 * `as` - The reflected [`as` attribute](https://html.spec.whatwg.org/C#attr-link-as) value, as it can often lead to mismatches and unused preloads
 * `crossorigin` - An enum representing the `crossorigin` attribute value, as it can similarly lead to mismatches
 * `type` - The type of the speculative fetch. e.g. "prefetch", "prerender" or "prerender-until-script"
-* `tags` - The relevant [tags](https://html.spec.whatwg.org/C#prefetch-record-tags).
+* `tags` - An array of the relevant [tags](https://html.spec.whatwg.org/C#prefetch-record-tags).
 * `eagerness` - The [eagerness](https://html.spec.whatwg.org/C#speculation-rule-eagerness) of the rule that lead to the speculative load.
 * `earlyhint` - Whether a preload was delivered using an early hint header.
 * `used` - The timestamp in which the resource was actually used. If it wasn't, it's `null`. A preload is considered **unused** if no resource load during the page lifetime [consumed](https://html.spec.whatwg.org/multipage/links.html#consume-a-preloaded-resource) it from the [map of preloaded resources](https://html.spec.whatwg.org/multipage/links.html#map-of-preloaded-resources).
