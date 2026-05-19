@@ -50,7 +50,7 @@ That object will have the following shape:
     { type: 'prerender', url: '...', tags: ['...'], eagerness: '...' },
     // ...
   ],
-  navigatedURL: "https://sameorigin.com/something"
+  navigationDestinationURL: "https://sameorigin.com/something"
 }
 ```
 
@@ -63,7 +63,7 @@ That object will have the following shape:
 * `earlyhint` - Whether a preload was delivered using an early hint header.
 * `used` - The timestamp in which the resource was actually used. If it wasn't, it's `null`. A preload is considered **unused** if no resource load during the page lifetime [consumed](https://html.spec.whatwg.org/multipage/links.html#consume-a-preloaded-resource) it from the [map of preloaded resources](https://html.spec.whatwg.org/multipage/links.html#map-of-preloaded-resources).
 
-The `navigatedURL` will only be exposed for same-origin navigations, after the same value was [exposed](https://html.spec.whatwg.org/multipage/#concept-navigationdestination-url) to the [NavigationDestination](https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigationdestination) as part of the "navigate" event. 
+The `navigationDestinationURL` will only be exposed for non-same-document same-origin navigations, after the same value was [exposed](https://html.spec.whatwg.org/multipage/#concept-navigationdestination-url) to the [NavigationDestination](https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigationdestination) as part of the "navigate" event. 
 
 ### Example Usage
 
