@@ -15,10 +15,12 @@ The feature exposes, **only to the document that initiated the speculations**, i
   - `url`: the destination URL the page asked the browser to speculate on.
   - `tags`: developer‑supplied tags from the rule, if any.
   - `eagerness`: `"conservative"`, `"moderate"`, `"eager"`, or `"immediate"`.
+- **`navigationDestinationURL`** (USVString or null): the URL of the most recent non-same-document, same-origin outgoing navigation, captured at the time the Navigation API's navigate event fires (i.e. the same point at which NavigationDestination.url becomes observable to script). null if no qualifying navigation has been observed.
 
 **Purpose:** Developers currently have no way to tell whether their speculations were actually used, or what navigations were speculated.
 Without this, they cannot tune `<link rel=preload>` lists or speculation rules, which means they either default to the most conservative settings,
 or ignore wasted resources by the user on or their servers.
+The navigationDestinationURL lets a page collecting analytics on pagehide correlate the speculations it had outstanding with the URL the user actually navigated to — without requiring hacks to obtain that information.
 
 The API gives them just enough signal to remove unused speculations and to safely raise eagerness when it pays off.
 
@@ -31,6 +33,8 @@ One new bit of information there is the `used` timestamp on preloads, which toda
 For navigations, the first party doesn't know speculated navigations unless they were actually useful, in which case the information is available to
 it in the following same-site navigation. At the same time, it can guess unused speculated navigations by carefully immitating the browser heuristics around clicks,
 hovers and intersection with the viewport.
+
+The same applies to navigationDestinationURL: the page can already obtain the exact same URL synchronously, with the same timing and same same-origin scope, via event.destination.url inside a navigate event handler on navigation. navigationDestinationURL is just a convenience surface that retains that value past the event handler's stack so it remains available inside pagehide/visibilitychange=hidden handlers, where developers actually want to ship telemetry. No information is exposed that wasn't already on the navigate event.
 
 ### 2.1.2. Information exposed to third parties that they could not previously determine
 
@@ -50,6 +54,7 @@ None.
 
 Yes. Only information required for the feature's functionality is exposed.
 
+
 ---
 
 ## 2.3. Do the features in your specification expose personal information, PII, or information derived from either?
@@ -63,6 +68,9 @@ The `used` timestamp is high‑resolution time of a *first‑party* event the pa
 ## 2.4. How do the features in your specification deal with sensitive information?
 
 The API does not handle sensitive information.
+
+While URLs can be sensitive in some contexts (e.g. they can contain personal identifiers in query strings), `navigationDestinationURL` only ever contains a same-origin URL the page itself constructed or followed.
+
 
 ---
 
@@ -154,6 +162,8 @@ No.
 The state is not updated while the document is non‑fully‑active in BFCache. 
 When the document becomes fully active again, the state resumes accumulating from whatever the new navigation triggers. 
 No additional retention or replay of speculative data occurs because of BFCache.
+
+`navigationDestinationURL` is written by the navigate event hook just before the page is navigated away — i.e. immediately before the page may enter BFCache. If the page is BFCached and later restored, `navigationDestinationURL` will still hold the URL that triggered the BFCache entry (the page's own intended destination at the time it left). On subsequent navigations from the restored document, that value is overwritten as usual.
 
 ---
 
