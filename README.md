@@ -41,8 +41,8 @@ That object will have the following shape:
 ```
 {
   preconnects: [
-    { url: '...', crossorigin: '...', earlyhint: true },
-    { url: '...', crossorigin: '...', earlyhint: false },
+    { origin: '...', crossorigin: '...', earlyhint: true },
+    { origin: '...', crossorigin: '...', earlyhint: false },
   ],
   preloads: [
     { url: '...', as: '...', crossorigin: '...', earlyhint: true, used: 123 },
