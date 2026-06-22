@@ -40,6 +40,10 @@ We will add a `getSpeculations()` method to the `performance` object, which will
 That object will have the following shape:
 ```
 {
+  preconnects: [
+    { url: '...', crossorigin: '...', earlyhint: true },
+    { url: '...', crossorigin: '...', earlyhint: false },
+  ],
   preloads: [
     { url: '...', as: '...', crossorigin: '...', earlyhint: true, used: 123 },
     { url: '...', as: '...', crossorigin: '...', earlyhint: true, used: null },
