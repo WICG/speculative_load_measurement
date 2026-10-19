@@ -91,7 +91,7 @@ TODO: We also need to expose the URL we're navigating to outside of the navigate
 
 ## Enabling the feature in Chrome
 
-Chrome (and other Chromium-based brosers) can enabled the feature using the `chrome://flags/#enable-experimental-web-platform-features` to test it and provide feedback. It is also available [as an origin trial](https://developer.chrome.com/origintrials/#/view_trial/2748884622556266497) from Chrome 150-158.
+Chrome (and other Chromium-based browsers) can enabled the feature using the `chrome://flags/#enable-experimental-web-platform-features` to test it and provide feedback. It is also available [as an origin trial](https://developer.chrome.com/origintrials/#/view_trial/2748884622556266497) from Chrome 150-158.
 
 ## Security and Privacy Considerations
 
