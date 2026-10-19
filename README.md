@@ -89,6 +89,10 @@ window.addEventListener('pagehide', (event) => {
 
 TODO: We also need to expose the URL we're navigating to outside of the navigate event, to make it easier to collect. We need to figure out the desired shape for that.
 
+## Enabling the feature in Chrome
+
+Chrome (and other Chromium-based browsers) can enabled the feature using the `chrome://flags/#enable-experimental-web-platform-features` to test it and provide feedback. It is also available [as an origin trial](https://developer.chrome.com/origintrials/#/view_trial/2748884622556266497) from Chrome 150-158.
+
 ## Security and Privacy Considerations
 
 This proposal can potentially make it easier to access same-origin data (e.g. "user navigated to a certain link", "user had certain sections go into the viewport" or "user hovered over something"). This data is already something developers can gather today.
