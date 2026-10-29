@@ -4,8 +4,9 @@
 
 ## Introduction
 
-Modern web applications can use speculative loading techniques to improve navigation performance.
-However, developers currently lack visibility into whether these speculations were actually used, making it hard for them to deploy higher eagerness values than "conservative". Such values can result in wasted user bandwidth and server-side load, and currently developers have no way to weigh the trade-off between those and potential performance gains.
+Modern web applications can use speculative loading techniques to improve navigation performance through techniques like `<link rel="preconnect|preload">` or the [Speculation Rules API](https://developer.mozilla.org/en-US/docs/Web/API/Speculation_Rules_API).
+
+However, developers currently lack visibility into whether these speculations were actually used, making it hard for them to optimize the amount of speculations, or tune the with deploy higher eagerness values than "conservative". Such values can result in wasted user bandwidth and server-side load, and currently developers have no way to weigh the trade-off between those and potential performance gains.
 
 This proposal addresses this by exposing information about used and unused speculative loads on page dismissal, enabling developers to measure speculation effectiveness and optimize their speculative load strategies, to pick the trade-off that's right for them.
 
@@ -28,6 +29,7 @@ This proposal aims to enable developers answering those questions.
 1. Only expose data on user actions in the current document (even for cross-origin speculative loads), without exposing cross-origin data.
 
 ## Non-Goals
+
 1. Enable developers to detect and handle situations when speculations are unsuccessful.
 1. Measurement of prefetched resources (as opposed to prefetched navigations).
    - Speculative resource fetches for the current page are better served with preload, which is covered.
@@ -75,8 +77,8 @@ The `navigationDestinationURL` will only be exposed for non-same-document same-o
 window.addEventListener('pagehide', (event) => {
   const { preloads, navigations } = performance.getSpeculations();
 
-  // Send unused speculation data to analytics endpoint
-  fetch('/analytics/unused-speculations', {
+  // Send speculation data to analytics endpoint
+  fetch('/analytics/speculations', {
     method: 'POST',
     keepalive: true,
     headers: { 'Content-Type': 'application/json' },
@@ -87,7 +89,7 @@ window.addEventListener('pagehide', (event) => {
 });
 ```
 
-TODO: We also need to expose the URL we're navigating to outside of the navigate event, to make it easier to collect. We need to figure out the desired shape for that.
+TODO: We also need to expose the URL we're navigating to outside of the `navigate` event, to make it easier to collect. We need to figure out the desired shape for that.
 
 ## Security and Privacy Considerations
 
