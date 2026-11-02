@@ -89,8 +89,6 @@ window.addEventListener('pagehide', (event) => {
 });
 ```
 
-TODO: We also need to expose the URL we're navigating to outside of the `navigate` event, to make it easier to collect. We need to figure out the desired shape for that.
-
 ## Security and Privacy Considerations
 
 This proposal can potentially make it easier to access same-origin data (e.g. "user navigated to a certain link", "user had certain sections go into the viewport" or "user hovered over something"). This data is already something developers can gather today.
